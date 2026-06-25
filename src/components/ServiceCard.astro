@@ -1,0 +1,20 @@
+---
+interface Props {
+  titulo: string;
+  desc: string;
+  detalle: string[];
+  featured?: boolean;
+}
+
+const { titulo, desc, detalle, featured = false } = Astro.props;
+---
+
+<article class:list={['card', { 'card-featured': featured }]}>
+  <div class="card-body">
+    <h3 class="card-title"><span class="chev">&gt;</span> {titulo}</h3>
+    <p class="card-desc">{desc}</p>
+  </div>
+  <ul class="card-list">
+    {detalle.map((d) => <li>{d}</li>)}
+  </ul>
+</article>

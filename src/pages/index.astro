@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import ServiceCard from '../components/ServiceCard.astro';
 
 const servicios = [
   {
@@ -89,12 +91,10 @@ const construyo = [
   <!-- PROBLEMA -->
   <section class="problema">
     <div class="container">
-      <h2 class="section-title">Lo tuyo es tu negocio, no la informática.</h2>
-      <p class="section-intro">
-        Y aun así, todo depende de que funcione: la web, las redes, los datos. Y
-        cuando se tuerce, te toca pelearte con paneles y avisos que no son lo
-        tuyo.
-      </p>
+      <SectionHead
+        title="Lo tuyo es tu negocio, no la informática."
+        intro="Y aun así, todo depende de que funcione: la web, las redes, los datos. Y cuando se tuerce, te toca pelearte con paneles y avisos que no son lo tuyo."
+      />
       <ul class="pain">
         <li><span class="chev">&gt;</span> La web lleva meses caída o desactualizada.</li>
         <li><span class="chev">&gt;</span> No tienes copias de seguridad… hasta que las necesitas.</li>
@@ -107,44 +107,21 @@ const construyo = [
   <!-- SERVICIOS -->
   <section id="servicios">
     <div class="container">
-      <p class="kicker"><span class="chev">&gt;</span> servicios</p>
-      <h2 class="section-title">Qué hago por tu negocio</h2>
-      <p class="section-intro">
-        Todo lo técnico de tu negocio, llevado por una sola persona. Coge lo que
-        necesites.
-      </p>
+      <SectionHead
+        kicker="servicios"
+        title="Qué hago por tu negocio"
+        intro="Todo lo técnico de tu negocio, llevado por una sola persona. Coge lo que necesites."
+      />
       {
         servicios
           .filter((s) => s.destacado)
-          .map((s) => (
-            <article class="card card-featured">
-              <div class="feat-text">
-                <h3><span class="chev">&gt;</span> {s.titulo}</h3>
-                <p>{s.desc}</p>
-              </div>
-              <ul class="card-list feat-list">
-                {s.detalle.map((d) => (
-                  <li>{d}</li>
-                ))}
-              </ul>
-            </article>
-          ))
+          .map((s) => <ServiceCard {...s} featured />)
       }
       <div class="cards">
         {
           servicios
             .filter((s) => !s.destacado)
-            .map((s) => (
-              <article class="card">
-                <h3><span class="chev">&gt;</span> {s.titulo}</h3>
-                <p>{s.desc}</p>
-                <ul class="card-list">
-                  {s.detalle.map((d) => (
-                    <li>{d}</li>
-                  ))}
-                </ul>
-              </article>
-            ))
+            .map((s) => <ServiceCard {...s} />)
         }
       </div>
     </div>
@@ -153,12 +130,11 @@ const construyo = [
   <!-- CÓMO TRABAJO -->
   <section id="como-trabajo" class="alt">
     <div class="container">
-      <p class="kicker"><span class="chev">&gt;</span> cómo trabajo</p>
-      <h2 class="section-title">Cercanía de barrio, herramientas de hoy.</h2>
-      <p class="section-intro">
-        «Taller» es una palabra de oficio: trabajo bien hecho y trato directo.
-        Así trabajo yo.
-      </p>
+      <SectionHead
+        kicker="cómo trabajo"
+        title="Cercanía de barrio, herramientas de hoy."
+        intro="«Taller» es una palabra de oficio: trabajo bien hecho y trato directo. Así trabajo yo."
+      />
       <div class="principios">
         {
           principios.map((p) => (
@@ -176,8 +152,7 @@ const construyo = [
   <section class="sobre">
     <div class="container split">
       <div>
-        <p class="kicker"><span class="chev">&gt;</span> quién está detrás</p>
-        <h2 class="section-title">Empiezo ahora. Y eso te conviene.</h2>
+        <SectionHead kicker="quién está detrás" title="Empiezo ahora. Y eso te conviene." />
         <p class="section-intro">
           Soy Alberto Martínez, 8 años desarrollando software. Acabo de montar
           Taller Martínez para dar servicio a negocios de mi zona, y eso significa
@@ -212,12 +187,11 @@ const construyo = [
   <!-- CONTACTO -->
   <section id="contacto" class="contacto">
     <div class="container">
-      <p class="kicker"><span class="chev">&gt;</span> contacto</p>
-      <h2 class="section-title">Cuéntame qué necesita tu negocio.</h2>
-      <p class="section-intro">
-        Sin compromiso. Me escribes, lo vemos, y te digo claro si puedo ayudarte
-        y cuánto costaría.
-      </p>
+      <SectionHead
+        kicker="contacto"
+        title="Cuéntame qué necesita tu negocio."
+        intro="Sin compromiso. Me escribes, lo vemos, y te digo claro si puedo ayudarte y cuánto costaría."
+      />
       <div class="cta-row">
         <a class="btn btn-primary" href="mailto:hola@tallermartinez.dev"
           ><span class="chev">&gt;</span> hola@tallermartinez.dev</a

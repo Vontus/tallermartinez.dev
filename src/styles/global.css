@@ -281,13 +281,45 @@ section.alt {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.9rem; /* espaciado bloque de texto → chips */
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
 .card:hover {
   border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
   transform: translateY(-2px);
 }
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem; /* única fuente del espaciado título → descripción */
+}
+.card-title {
+  margin: 0;
+  font-size: 1.2rem;
+}
+.card-desc {
+  margin: 0;
+  color: var(--fog-soft);
+  font-size: 0.98rem;
+}
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.card-list li {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--fog-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.18rem 0.65rem;
+}
+
+/* Variante destacada (IA): banner horizontal a todo el ancho */
 .card-featured {
   position: relative;
   margin-bottom: 1.1rem;
@@ -305,52 +337,21 @@ section.alt {
 .card-featured:hover {
   transform: none;
 }
-.feat-text {
+.card-featured .card-body {
   flex: 1 1 26rem;
 }
-.feat-text h3 {
-  margin: 0 0 0.5rem;
+.card-featured .card-title {
   font-size: 1.35rem;
 }
-.feat-text p {
-  margin: 0;
-  color: var(--fog-soft);
+.card-featured .card-desc {
   font-size: 1rem;
   max-width: 60ch;
 }
-.feat-list {
-  margin: 0;
-}
-.feat-list li {
+.card-featured .card-list li {
   font-size: 0.78rem;
   padding: 0.3rem 0.8rem;
   border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
   color: var(--fog);
-}
-.card h3 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-.card > p {
-  margin: 0;
-  color: var(--fog-soft);
-  font-size: 0.98rem;
-}
-.card-list {
-  list-style: none;
-  padding: 0;
-  margin: 0.4rem 0 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-.card-list li {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--fog-soft);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 0.18rem 0.65rem;
 }
 
 /* ---- Principios ---- */
