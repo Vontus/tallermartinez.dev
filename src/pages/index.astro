@@ -1,0 +1,203 @@
+---
+import Base from '../layouts/Base.astro';
+
+const servicios = [
+  {
+    titulo: 'Tu web y tus apps',
+    desc: 'Páginas, tiendas y aplicaciones a medida. Desde una landing que capte clientes hasta una herramienta interna que te ahorre horas.',
+    detalle: ['Webs y tiendas online', 'Apps a medida', 'Automatizaciones'],
+  },
+  {
+    titulo: 'Tus datos a salvo',
+    desc: 'Copias de seguridad que funcionan de verdad, orden en tus archivos y cumplimiento de protección de datos. Para que un susto no se lleve tu negocio.',
+    detalle: ['Copias automáticas', 'Recuperación ante fallos', 'RGPD básico'],
+  },
+  {
+    titulo: 'Tu presencia online',
+    desc: 'Redes sociales, contenido y publicidad que sí se ve. Tu negocio aparece donde está su gente, sin que tengas que pelearte con Meta Business.',
+    detalle: ['Redes sociales', 'Publicidad local', 'Contenido'],
+  },
+  {
+    titulo: 'Consultoría',
+    desc: 'Qué herramienta usar, cómo digitalizar ese proceso, por qué pagas tres programas que hacen lo mismo. Te lo explico sin tecnicismos y decides tú.',
+    detalle: ['Qué herramientas usar', 'Digitalizar procesos', 'Segunda opinión'],
+  },
+];
+
+const principios = [
+  {
+    titulo: 'Hablas siempre conmigo',
+    desc: 'Nada de centralitas ni tickets. La parte técnica de tu negocio la lleva una persona, la misma de principio a fin: yo.',
+  },
+  {
+    titulo: 'Sin tecnicismos',
+    desc: 'Te explico las cosas en cristiano y tú decides con la información clara. Nada de letra pequeña ni humo.',
+  },
+  {
+    titulo: 'Precios claros',
+    desc: 'Presupuesto cerrado antes de empezar. Sabes lo que pagas y por qué, sin sorpresas a final de mes.',
+  },
+  {
+    titulo: 'Aquí al lado',
+    desc: 'Soy de tu zona y trabajo cerca. Si hace falta, nos vemos. Si no, te cojo el teléfono igual.',
+  },
+];
+
+const construyo = [
+  {
+    nombre: 'warden',
+    desc: 'Sistema de despliegue automático para servicios self-hosted. Lo que mantiene mis proyectos funcionando solos.',
+    tag: 'Infra',
+  },
+  {
+    nombre: 'UrbanDictionaryBot',
+    desc: 'Bot de Telegram con búsqueda inline, navegación y palabra del día. Miles de consultas servidas.',
+    tag: 'Bot',
+  },
+  {
+    nombre: 'vontus.dev',
+    desc: 'Mi taller personal de software: proyectos, código abierto y el lado más técnico de lo que hago.',
+    tag: 'Web',
+  },
+];
+---
+
+<Base>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow"><span class="chev">&gt;</span> informática para tu negocio</p>
+      <h1>El informático de confianza de tu negocio.</h1>
+      <p class="lead">
+        Web, datos, copias de seguridad y redes sociales, en manos de una sola
+        persona. Sin
+        tecnicismos y aquí al lado.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#contacto"><span class="chev">&gt;</span> Hablemos</a>
+        <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section class="problema">
+    <div class="container">
+      <h2 class="section-title">Lo tuyo es tu negocio, no la informática.</h2>
+      <p class="section-intro">
+        Y aun así, todo depende de que funcione: la web, las redes, los datos. Y
+        cuando se tuerce, te toca pelearte con paneles y avisos que no son lo
+        tuyo.
+      </p>
+      <ul class="pain">
+        <li><span class="chev">&gt;</span> La web lleva meses caída o desactualizada.</li>
+        <li><span class="chev">&gt;</span> No tienes copias de seguridad… hasta que las necesitas.</li>
+        <li><span class="chev">&gt;</span> Las redes sociales llevan abandonadas desde verano.</li>
+        <li><span class="chev">&gt;</span> Pagas programas que nadie sabe muy bien para qué son.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="container">
+      <p class="kicker"><span class="chev">&gt;</span> servicios</p>
+      <h2 class="section-title">Qué hago por tu negocio</h2>
+      <p class="section-intro">
+        Todo lo técnico de tu negocio, llevado por una sola persona. Coge lo que
+        necesites.
+      </p>
+      <div class="cards">
+        {
+          servicios.map((s) => (
+            <article class="card">
+              <h3><span class="chev">&gt;</span> {s.titulo}</h3>
+              <p>{s.desc}</p>
+              <ul class="card-list">
+                {s.detalle.map((d) => (
+                  <li>{d}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO TRABAJO -->
+  <section id="como-trabajo" class="alt">
+    <div class="container">
+      <p class="kicker"><span class="chev">&gt;</span> cómo trabajo</p>
+      <h2 class="section-title">Cercanía de barrio, herramientas de hoy.</h2>
+      <p class="section-intro">
+        «Taller» es una palabra de oficio: trabajo bien hecho y trato directo.
+        Así trabajo yo.
+      </p>
+      <div class="principios">
+        {
+          principios.map((p) => (
+            <div class="principio">
+              <h3>{p.titulo}</h3>
+              <p>{p.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- EMPIEZO AHORA / SOBRE MÍ -->
+  <section class="sobre">
+    <div class="container split">
+      <div>
+        <p class="kicker"><span class="chev">&gt;</span> quién está detrás</p>
+        <h2 class="section-title">Empiezo ahora. Y eso te conviene.</h2>
+        <p class="section-intro">
+          Soy Alberto Martínez, 8 años desarrollando software. Acabo de montar
+          Taller Martínez para dar servicio a negocios de mi zona, y eso significa
+          una cosa para ti: <strong>atención total y precios de cercanía.</strong>
+          Tu negocio no se pierde entre otros mil.
+        </p>
+        <p class="section-intro">
+          Mi lado más técnico vive en
+          <a href="https://vontus.dev" rel="noopener" target="_blank">vontus.dev</a>,
+          donde están mis proyectos y mi código abierto.
+        </p>
+      </div>
+      <div>
+        <p class="kicker"><span class="chev">&gt;</span> lo que construyo</p>
+        <div class="mini-cards">
+          {
+            construyo.map((c) => (
+              <article class="mini-card">
+                <div class="mini-head">
+                  <h3>{c.nombre}</h3>
+                  <span class="tag">{c.tag}</span>
+                </div>
+                <p>{c.desc}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="contacto">
+    <div class="container">
+      <p class="kicker"><span class="chev">&gt;</span> contacto</p>
+      <h2 class="section-title">Cuéntame qué necesita tu negocio.</h2>
+      <p class="section-intro">
+        Sin compromiso. Me escribes, lo vemos, y te digo claro si puedo ayudarte
+        y cuánto costaría.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:hola@tallermartinez.dev"
+          ><span class="chev">&gt;</span> hola@tallermartinez.dev</a
+        >
+      </div>
+    </div>
+  </section>
+</Base>
