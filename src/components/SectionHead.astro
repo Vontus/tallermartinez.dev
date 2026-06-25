@@ -1,4 +1,6 @@
 ---
+import Kicker from './Kicker.astro';
+
 interface Props {
   kicker?: string;
   title: string;
@@ -8,12 +10,6 @@ interface Props {
 const { kicker, title, intro } = Astro.props;
 ---
 
-{
-  kicker && (
-    <p class="kicker">
-      <span class="chev">&gt;</span> {kicker}
-    </p>
-  )
-}
+{kicker && <Kicker text={kicker} />}
 <h2 class="section-title">{title}</h2>
 {intro && <p class="section-intro">{intro}</p>}
