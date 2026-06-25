@@ -21,6 +21,5 @@ pnpm build    # genera dist/
 
 ## Despliegue
 
-Sirve como repo de proyecto en `https://vontus.github.io/tallermartinez.dev/`.
-Al contratar el dominio propio: añadir `public/CNAME` con `tallermartinez.dev`,
-y en `astro.config.mjs` poner `site: 'https://tallermartinez.dev'` y `base: '/'`.
+Push a `main` → GitHub Actions construye y publica en GitHub Pages.
+Dominio propio: **https://tallermartinez.net** (apex, vía `public/CNAME`).
