@@ -290,23 +290,42 @@ section.alt {
 }
 .card-featured {
   position: relative;
+  margin-bottom: 1.1rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.4rem 2.5rem;
+  padding: 1.8rem;
   border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
   background:
-    radial-gradient(28rem 16rem at 100% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),
+    radial-gradient(36rem 18rem at 100% 0%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 70%),
     var(--carbon-2);
 }
-.badge {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: #16181b;
-  background: var(--accent);
-  border-radius: 999px;
-  padding: 0.12rem 0.55rem;
+.card-featured:hover {
+  transform: none;
+}
+.feat-text {
+  flex: 1 1 26rem;
+}
+.feat-text h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.35rem;
+}
+.feat-text p {
+  margin: 0;
+  color: var(--fog-soft);
+  font-size: 1rem;
+  max-width: 60ch;
+}
+.feat-list {
+  margin: 0;
+}
+.feat-list li {
+  font-size: 0.78rem;
+  padding: 0.3rem 0.8rem;
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+  color: var(--fog);
 }
 .card h3 {
   margin: 0;

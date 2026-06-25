@@ -113,20 +113,38 @@ const construyo = [
         Todo lo técnico de tu negocio, llevado por una sola persona. Coge lo que
         necesites.
       </p>
-      <div class="cards">
-        {
-          servicios.map((s) => (
-            <article class={s.destacado ? 'card card-featured' : 'card'}>
-              {s.destacado && <span class="badge">IA</span>}
-              <h3><span class="chev">&gt;</span> {s.titulo}</h3>
-              <p>{s.desc}</p>
-              <ul class="card-list">
+      {
+        servicios
+          .filter((s) => s.destacado)
+          .map((s) => (
+            <article class="card card-featured">
+              <div class="feat-text">
+                <h3><span class="chev">&gt;</span> {s.titulo}</h3>
+                <p>{s.desc}</p>
+              </div>
+              <ul class="card-list feat-list">
                 {s.detalle.map((d) => (
                   <li>{d}</li>
                 ))}
               </ul>
             </article>
           ))
+      }
+      <div class="cards">
+        {
+          servicios
+            .filter((s) => !s.destacado)
+            .map((s) => (
+              <article class="card">
+                <h3><span class="chev">&gt;</span> {s.titulo}</h3>
+                <p>{s.desc}</p>
+                <ul class="card-list">
+                  {s.detalle.map((d) => (
+                    <li>{d}</li>
+                  ))}
+                </ul>
+              </article>
+            ))
         }
       </div>
     </div>
