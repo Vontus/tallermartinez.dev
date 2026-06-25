@@ -1,90 +1,107 @@
 # Taller Martínez
 
-Landing one-page de **Taller Martínez**, la marca de servicios de informática de
-Alberto Martínez para **negocios locales** (autónomo). Web, datos, copias de
-seguridad, redes sociales e **IA aplicada**, llevado por una sola persona.
+Landing **bilingüe (es/en)** de **Taller Martínez**, la marca de servicios de
+informática de Alberto Martínez para **negocios locales** (autónomo): web, datos,
+copias de seguridad, redes sociales e **IA aplicada**, llevado por una sola
+persona, en Torrevieja, la provincia de Alicante y la Región de Murcia.
 
-> No confundir con [vontus.dev](https://vontus.dev): vontus es la cara
-> **personal/dev** (portfolio, código abierto). Taller Martínez es la cara de
-> **negocio/servicios a empresas**. Marcas separadas a propósito.
+> Marca separada de [vontus.dev](https://vontus.dev) (la cara personal/dev,
+> portfolio y código abierto). Taller Martínez es la cara de negocio/servicios.
 
-## Posicionamiento y tono (IMPORTANTE para escribir copy)
+## Posicionamiento y tono (para escribir copy)
 
-- **Target:** dueños de negocios locales pequeños (p. ej. una tienda con 2
-  empleadas), **no técnicos**. Piensan en personas ("el informático"), no en
-  departamentos ni en jerga.
-- **Promesa central:** despreocuparse. El cliente no quiere ahorrar tiempo ni
-  "soluciones disruptivas"; quiere **no pelearse** con la tecnología (Meta
-  Business, paneles, avisos, copias de seguridad…).
+- **Target:** dueños de negocios locales pequeños, **no técnicos**. En la zona hay
+  mucho residente británico, de ahí la versión inglesa.
+- **Promesa central:** despreocuparse. El cliente quiere **no pelearse** con la
+  tecnología, no "soluciones disruptivas".
 - **Voz:** cercana, en cristiano, de tú a tú. Evitar tecnicismos y lenguaje
   corporativo ("interlocutor", "departamento", claims grandilocuentes).
-- **Diferenciador:** un solo interlocutor de confianza + **IA** (la mayoría de
-  "informáticos de barrio" no la ofrecen). La IA va contada concreta y sin humo.
+- **Inglés = británico nativo, no traducción literal.** Si un juego de palabras no
+  traduce limpio, se reescribe la idea (no se calca).
+- **Cuidar la repetición** de "tu negocio" / "informático" (se mantienen solo en
+  el H1 y la frase de contraste del problema, por SEO).
 
 ## Identidad visual
 
 - **Logo `>M`:** la `>` (naranja) es un **prompt**; la `M` (blanca) es la inicial.
-  Fondo gris carbón. Está en `public/favicon.svg` y en el header.
-- **El `>` es marca y viñeta**, no texto de terminal. Se usa como prefijo en
-  eyebrows, kickers, CTAs y listas (`<span class="chev">&gt;</span>`). NO meter
-  prompts literales tipo `usuario:~$` (el cliente no los entendería).
-- **Paleta:** gris carbón + acento naranja. Definida en `:root` de
-  `src/styles/global.css` (`--carbon*`, `--accent`, `--fog*`). Solo modo oscuro.
-- **Tipografía:** sans limpia para el cuerpo; mono (`--mono`) solo en detalles
-  (kickers, chips, el `>`).
+  Sobre gris carbón. Hecho con la tipografía **League Spartan Bold** (la `>` y la
+  `M` son glifos reales de la fuente, convertidos a **trazos vectoriales**).
+- **El `>` es marca y viñeta**, no texto de terminal. Prefijo en eyebrows, kickers
+  y listas (`<span class="chev">&gt;</span>`). NO prompts literales tipo
+  `usuario:~$` (el cliente no los entendería).
+- **Paleta:** gris carbón + acento naranja, en `:root` de `src/styles/global.css`
+  (`--carbon*`, `--accent`, `--fog*`). Solo modo oscuro.
+- **Tipografía:** el **logotipo** es League Spartan (outlined, sin cargar la
+  fuente). El **cuerpo** es sans del sistema; mono (`--mono`) solo en detalles.
+
+## Activos generados (logo, wordmark, OG)
+
+NO se editan a mano: se **generan** desde League Spartan con `fonttools` (instancia
+la fuente variable a Bold 700 y extrae los glifos a `path` con `SVGPathPen`) y se
+rasterizan con `sharp`.
+
+- `public/logo.svg`, `public/favicon.svg` — la marca `>M`.
+- `public/wordmark.svg` — "Taller Martínez" outlined (header).
+- `public/og.png` (es), `public/og-en.png` (en) — 1200×630, imagen social.
 
 ## Stack
 
-- [Astro](https://astro.build) — sitio estático, sin framework de UI.
-- pnpm. TypeScript en modo strict.
+[Astro](https://astro.build) — sitio estático, sin framework de UI. pnpm. TS strict.
+
+## i18n
+
+Traducciones tipo "proyecto grande", con routing manual (sin la config i18n de
+Astro, más predecible en estático):
+
+- **Diccionarios por idioma:** `src/i18n/es.ts` y `src/i18n/en.ts`, tipados por
+  `Content` (`types.ts`). **Todo el texto vive ahí.** `index.ts` →
+  `getContent(locale)`, `locales`, `defaultLocale`.
+- **Markup único:** `src/components/Landing.astro` pinta las secciones desde el
+  diccionario; `src/pages/{es,en}/index.astro` son una línea cada una.
+- **Rutas:** `/es/` y `/en/`. La raíz `/` (`src/pages/index.astro`) es un
+  **redirector cliente** que lee `navigator.languages` y manda a `/es/` o `/en/`
+  (por defecto es); entrar directo a `/es` o `/en` se respeta. La raíz va `noindex`.
+
+## SEO
+
+- Por idioma: `<html lang>`, title, description, Open Graph, Twitter y JSON-LD
+  `ProfessionalService` localizados (en `Base.astro`, desde el diccionario).
+- `hreflang` es/en/x-default en cada página + `public/sitemap.xml` (ambas URLs) y
+  `public/robots.txt`. `og:image` propio por idioma.
 
 ## Estructura
 
 ```
 src/
-  layouts/Base.astro        Header (logo >M), footer, <head>, <slot/>
-  pages/index.astro         Toda la landing; el contenido vive en arrays
-                            (servicios, principios, construyo) mapeados a componentes
+  layouts/Base.astro        <head> (meta/SEO/hreflang/JSON-LD), header, footer. Prop: locale
   components/
-    SectionHead.astro       kicker (opcional) + título + intro. Reutilizado en
-                            servicios / cómo trabajo / contacto / sobre
-    ServiceCard.astro       Tarjeta de servicio. Prop `featured` → variante IA
-                            (banner horizontal a todo el ancho). Misma estructura
-                            .card-body/.card-title/.card-desc en ambas variantes
-  styles/global.css         Todos los estilos. Un único archivo
-public/favicon.svg          Logo >M
+    Landing.astro           Todas las secciones; prop locale (lee el diccionario)
+    SectionHead.astro       kicker (opcional) + título + intro
+    ServiceCard.astro       Tarjeta. Prop `featured` → variante IA (banner ancho).
+                            Estructura .card-body/.card-title/.card-desc
+    Kicker.astro            `> texto` (un solo sitio para el espacio tras el `>`)
+  i18n/{types,es,en,index}.ts
+  pages/{index,es/index,en/index}.astro
+  styles/global.css         Todos los estilos (un único archivo)
+public/  logo.svg wordmark.svg favicon.svg og.png og-en.png CNAME robots.txt sitemap.xml
 ```
 
 ### Convenciones
 
-- **Componetizar lo que se repite.** El título/espaciado de las cards y el bloque
-  de cabecera de sección viven en un solo sitio para que las variantes no
-  diverjan (ese fue el motivo de extraer `ServiceCard`/`SectionHead`).
-- **Espaciado título→descripción:** fuente única en `.card-body { gap }`. No
-  reintroducir márgenes en una variante y `gap` en otra.
-- Secciones del index = arrays de datos en el frontmatter + `.map()`.
+- **Componetizar lo que se repite** (cards, cabeceras, kickers) para que las
+  variantes no diverjan. Espaciado título→descripción de las cards: fuente única
+  en `.card-body { gap }`.
+- **Texto nuevo → al diccionario** (`src/i18n/*.ts`), nunca hardcodear en el
+  markup, y siempre en los **dos idiomas**.
+- PRs y commits **en inglés**.
 
-## Desarrollo
+## Desarrollo y despliegue
 
 ```bash
 pnpm install
-pnpm dev      # http://localhost:4321/
+pnpm dev      # http://localhost:4321/  (/, /es/, /en/)
 pnpm build    # genera dist/
 ```
 
-## Despliegue
-
-- Push a `main` → GitHub Actions (`.github/workflows/deploy.yml`) construye y
-  publica en GitHub Pages. Repo: `Vontus/tallermartinez.dev` (nombre histórico;
-  el dominio es `.net`).
-- **Dominio propio:** [tallermartinez.net](https://tallermartinez.net) (apex).
-  El `public/CNAME` lo fija y `astro.config.mjs` usa `site:
-  'https://tallermartinez.net'` + `base: '/'`.
-- DNS (en el registrador): apex `tallermartinez.net` → A records a las IPs de
-  GitHub Pages (185.199.108–111.153) + AAAA; `www` → CNAME a `vontus.github.io`.
-
-## Tareas / contexto
-
-- Email de contacto: `hola@tallermartinez.net` (requiere hosting de correo
-  configurado en el dominio para que reciba).
-- PRs y commits **en inglés**.
+Push a `main` → GitHub Actions despliega a GitHub Pages. Dominio propio vía
+`public/CNAME`; `astro.config.mjs` con `base: '/'`.
