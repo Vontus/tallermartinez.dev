@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from './SectionHead.astro';
+import ServiceCard from './ServiceCard.astro';
+import Kicker from './Kicker.astro';
+import { getContent, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const c = getContent(locale);
+---
+
+<Base locale={locale}>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow"><span class="chev">&gt;</span> {c.hero.eyebrow}</p>
+      <h1>{c.hero.h1}</h1>
+      <p class="lead">{c.hero.lead}</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#contacto"><span class="chev">&gt;</span> {c.hero.ctaPrimary}</a>
+        <a class="btn btn-ghost" href="#servicios">{c.hero.ctaGhost}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section class="problema">
+    <div class="container">
+      <SectionHead title={c.problem.title} intro={c.problem.intro} />
+      <ul class="pain">
+        {c.problem.pains.map((p) => <li><span class="chev">&gt;</span> {p}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="container">
+      <SectionHead kicker={c.services.kicker} title={c.services.title} intro={c.services.intro} />
+      {c.services.items.filter((s) => s.destacado).map((s) => <ServiceCard {...s} featured />)}
+      <div class="cards">
+        {c.services.items.filter((s) => !s.destacado).map((s) => <ServiceCard {...s} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO TRABAJO -->
+  <section id="como-trabajo" class="alt">
+    <div class="container">
+      <SectionHead kicker={c.how.kicker} title={c.how.title} intro={c.how.intro} />
+      <div class="principios">
+        {
+          c.how.items.map((p) => (
+            <div class="principio">
+              <h3>{p.titulo}</h3>
+              <p>{p.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- EMPIEZO AHORA / SOBRE MÍ -->
+  <section class="sobre">
+    <div class="container split">
+      <div>
+        <SectionHead kicker={c.about.kicker} title={c.about.title} />
+        <p class="section-intro" set:html={c.about.bodyHtml} />
+      </div>
+      <div>
+        <Kicker text={c.about.buildKicker} />
+        <div class="mini-cards">
+          {
+            c.about.projects.map((p) => (
+              <article class="mini-card">
+                <div class="mini-head">
+                  <h3>{p.nombre}</h3>
+                  <span class="tag">{p.tag}</span>
+                </div>
+                <p>{p.desc}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="contacto">
+    <div class="container">
+      <SectionHead kicker={c.contact.kicker} title={c.contact.title} intro={c.contact.intro} />
+      <div class="cta-row">
+        <a class="btn btn-primary" href={`mailto:${c.contact.email}`}
+          ><span class="chev">&gt;</span> {c.contact.email}</a
+        >
+      </div>
+    </div>
+  </section>
+</Base>

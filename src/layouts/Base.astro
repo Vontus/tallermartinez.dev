@@ -1,30 +1,32 @@
 ---
 import '../styles/global.css';
+import { getContent, locales, type Locale } from '../i18n';
 
 interface Props {
-  title?: string;
-  description?: string;
+  locale: Locale;
 }
 
-const {
-  title = 'Taller Martínez — Informático para empresas en Torrevieja, Alicante y Murcia',
-  description = 'El informático de confianza de tu negocio en Torrevieja, la provincia de Alicante y la Región de Murcia. Diseño web, tiendas online, copias de seguridad, redes sociales e IA, en manos de una sola persona.',
-} = Astro.props;
+const { locale } = Astro.props;
+const c = getContent(locale);
 
 const year = new Date().getFullYear();
 const base = import.meta.env.BASE_URL;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const ogImage = new URL('og.png', Astro.site).href;
+const ogImage = new URL(c.meta.ogImage, Astro.site).href;
+
+// URLs por idioma (rutas /es/ y /en/) + x-default al selector de la raíz.
+const localeUrl = (l: Locale) => new URL(`${l}/`, Astro.site).href;
+const xDefault = new URL('/', Astro.site).href;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   name: 'Taller Martínez',
-  description,
+  description: c.meta.description,
   url: canonical,
   image: ogImage,
-  email: 'alberto@tallermartinez.net',
+  email: c.contact.email,
   priceRange: '€€',
   founder: { '@type': 'Person', name: 'Alberto Martínez' },
   sameAs: ['https://vontus.dev'],
@@ -34,32 +36,21 @@ const jsonLd = {
     addressRegion: 'Alicante',
     addressCountry: 'ES',
   },
-  areaServed: [
-    { '@type': 'City', name: 'Torrevieja' },
-    { '@type': 'AdministrativeArea', name: 'Provincia de Alicante' },
-    { '@type': 'AdministrativeArea', name: 'Región de Murcia' },
-  ],
-  knowsAbout: [
-    'Diseño y desarrollo web',
-    'Tiendas online',
-    'Aplicaciones a medida',
-    'Copias de seguridad',
-    'Gestión de redes sociales',
-    'Publicidad en redes',
-    'Inteligencia artificial para negocios',
-    'Consultoría informática',
-  ],
+  areaServed: c.meta.areaServed.map((name) => ({ '@type': 'AdministrativeArea', name })),
+  knowsAbout: c.meta.knowsAbout,
 };
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={c.meta.htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <title>{c.meta.title}</title>
+    <meta name="description" content={c.meta.description} />
     <link rel="canonical" href={canonical} />
+    {locales.map((l) => <link rel="alternate" hreflang={l} href={localeUrl(l)} />)}
+    <link rel="alternate" hreflang="x-default" href={xDefault} />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#16181b" />
@@ -73,16 +64,16 @@ const jsonLd = {
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Taller Martínez" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={c.meta.title} />
+    <meta property="og:description" content={c.meta.description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale" content={c.meta.ogLocale} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={c.meta.title} />
+    <meta name="twitter:description" content={c.meta.description} />
     <meta name="twitter:image" content={ogImage} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
@@ -90,14 +81,23 @@ const jsonLd = {
   <body>
     <header class="site-header">
       <div class="container">
-        <a class="brand" href={base} aria-label="Taller Martínez">
+        <a class="brand" href={`${base}${locale}/`} aria-label="Taller Martínez">
           <img class="logo-mark" src={`${base}logo.svg`} width="32" height="32" alt="" />
           <img class="wordmark" src={`${base}wordmark.svg`} alt="Taller Martínez" />
         </a>
         <nav class="nav">
-          <a href="#servicios">Servicios</a>
-          <a href="#como-trabajo">Cómo trabajo</a>
-          <a class="nav-cta" href="#contacto">Hablemos</a>
+          <a href="#servicios">{c.nav.services}</a>
+          <a href="#como-trabajo">{c.nav.how}</a>
+          <a class="nav-cta" href="#contacto">{c.nav.cta}</a>
+          <span class="lang" aria-label={c.nav.langLabel}>
+            {
+              locales.map((l) => (
+                <a href={`${base}${l}/`} class={l === locale ? 'active' : ''} hreflang={l}>
+                  {l.toUpperCase()}
+                </a>
+              ))
+            }
+          </span>
         </nav>
       </div>
     </header>
@@ -108,9 +108,9 @@ const jsonLd = {
 
     <footer class="site-footer">
       <div class="container">
-        <span>© {year} Taller Martínez · Torrevieja, Alicante y Murcia</span>
+        <span>© {year} Taller Martínez · {c.footer.location}</span>
         <span>
-          <a href="mailto:alberto@tallermartinez.net">alberto@tallermartinez.net</a> ·
+          <a href={`mailto:${c.contact.email}`}>{c.contact.email}</a> ·
           <a href="https://vontus.dev" rel="noopener" target="_blank">vontus.dev</a>
         </span>
       </div>

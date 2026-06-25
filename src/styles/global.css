@@ -136,17 +136,46 @@ strong {
   border-color: var(--accent);
   color: var(--accent);
 }
+.nav .lang {
+  display: inline-flex;
+  gap: 0.45rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  border-left: 1px solid var(--line);
+  padding-left: 1rem;
+}
+.nav .lang a {
+  color: var(--fog-soft);
+  opacity: 0.6;
+  text-decoration: none;
+}
+.nav .lang a.active {
+  color: var(--fog);
+  opacity: 1;
+}
+.nav .lang a:hover {
+  color: var(--accent);
+  opacity: 1;
+}
 @media (max-width: 640px) {
+  /* El nombre de la empresa sí se muestra en móvil (algo más pequeño). */
   .brand .wordmark {
-    display: none;
+    height: 0.95rem;
   }
-  /* En móvil ocultamos los enlaces de navegación; dejamos solo el CTA. */
-  .nav a:not(.nav-cta) {
+  /* Ocultamos los enlaces de sección; dejamos el CTA y el selector de idioma. */
+  .nav > a:not(.nav-cta) {
     display: none;
   }
   .nav {
-    gap: 0.9rem;
+    gap: 0.8rem;
     font-size: 0.9rem;
+  }
+  .nav .nav-cta {
+    padding: 0.35rem 0.7rem;
+  }
+  .nav .lang {
+    padding-left: 0.7rem;
+    gap: 0.35rem;
   }
 }
 
