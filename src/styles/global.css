@@ -140,6 +140,10 @@ strong {
   .brand .wordmark {
     display: none;
   }
+  /* En móvil ocultamos los enlaces de navegación; dejamos solo el CTA. */
+  .nav a:not(.nav-cta) {
+    display: none;
+  }
   .nav {
     gap: 0.9rem;
     font-size: 0.9rem;
