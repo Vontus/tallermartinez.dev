@@ -20,7 +20,7 @@ export const en: Content = {
       'IT consulting',
     ],
   },
-  nav: { services: 'Services', how: 'How I work', cta: "Let's talk", langLabel: 'Language' },
+  nav: { services: 'Services', how: 'How I work', langLabel: 'Language' },
   hero: {
     eyebrow: 'tech for local businesses',
     h1: 'The IT support your business can rely on.',

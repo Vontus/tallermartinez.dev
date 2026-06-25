@@ -20,7 +20,7 @@ export const es: Content = {
       'Consultoría informática',
     ],
   },
-  nav: { services: 'Servicios', how: 'Cómo trabajo', cta: 'Hablemos', langLabel: 'Idioma' },
+  nav: { services: 'Servicios', how: 'Cómo trabajo', langLabel: 'Idioma' },
   hero: {
     eyebrow: 'tecnología para empresas locales',
     h1: 'El informático de confianza de tu negocio.',

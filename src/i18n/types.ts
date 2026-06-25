@@ -29,7 +29,7 @@ export interface Content {
     areaServed: string[];
     knowsAbout: string[];
   };
-  nav: { services: string; how: string; cta: string; langLabel: string };
+  nav: { services: string; how: string; langLabel: string };
   hero: {
     eyebrow: string;
     h1: string;
