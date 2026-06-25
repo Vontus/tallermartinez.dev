@@ -7,12 +7,49 @@ interface Props {
 }
 
 const {
-  title = 'Taller Martínez · Informática para tu negocio',
-  description = 'El informático de confianza de tu negocio en Torrevieja, la provincia de Alicante y la Región de Murcia. Web, datos, copias de seguridad y redes sociales, en manos de una sola persona.',
+  title = 'Taller Martínez — Informático para empresas en Torrevieja, Alicante y Murcia',
+  description = 'El informático de confianza de tu negocio en Torrevieja, la provincia de Alicante y la Región de Murcia. Diseño web, tiendas online, copias de seguridad, redes sociales e IA, en manos de una sola persona.',
 } = Astro.props;
 
 const year = new Date().getFullYear();
 const base = import.meta.env.BASE_URL;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('og.png', Astro.site).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Taller Martínez',
+  description,
+  url: canonical,
+  image: ogImage,
+  email: 'hola@tallermartinez.net',
+  priceRange: '€€',
+  founder: { '@type': 'Person', name: 'Alberto Martínez' },
+  sameAs: ['https://vontus.dev'],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Torrevieja',
+    addressRegion: 'Alicante',
+    addressCountry: 'ES',
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Torrevieja' },
+    { '@type': 'AdministrativeArea', name: 'Provincia de Alicante' },
+    { '@type': 'AdministrativeArea', name: 'Región de Murcia' },
+  ],
+  knowsAbout: [
+    'Diseño y desarrollo web',
+    'Tiendas online',
+    'Aplicaciones a medida',
+    'Copias de seguridad',
+    'Gestión de redes sociales',
+    'Publicidad en redes',
+    'Inteligencia artificial para negocios',
+    'Consultoría informática',
+  ],
+};
 ---
 
 <!doctype html>
@@ -20,17 +57,42 @@ const base = import.meta.env.BASE_URL;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <meta name="color-scheme" content="dark" />
-    <title>{title}</title>
+    <meta name="theme-color" content="#16181b" />
+
+    <!-- Geo / local -->
+    <meta name="geo.region" content="ES-A" />
+    <meta name="geo.placename" content="Torrevieja" />
+    <meta name="geo.position" content="37.978;-0.682" />
+    <meta name="ICBM" content="37.978, -0.682" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Taller Martínez" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
     <header class="site-header">
       <div class="container">
         <a class="brand" href={base} aria-label="Taller Martínez">
-          <span class="mark"><span class="chevron">&gt;</span><span class="m">M</span></span>
-          <span class="brand-name">Taller Martínez</span>
+          <img class="logo-mark" src={`${base}logo.svg`} width="32" height="32" alt="" />
+          <img class="wordmark" src={`${base}wordmark.svg`} alt="Taller Martínez" />
         </a>
         <nav class="nav">
           <a href="#servicios">Servicios</a>
