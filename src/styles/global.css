@@ -288,6 +288,26 @@ section.alt {
   border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
   transform: translateY(-2px);
 }
+.card-featured {
+  position: relative;
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  background:
+    radial-gradient(28rem 16rem at 100% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),
+    var(--carbon-2);
+}
+.badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #16181b;
+  background: var(--accent);
+  border-radius: 999px;
+  padding: 0.12rem 0.55rem;
+}
 .card h3 {
   margin: 0;
   font-size: 1.2rem;

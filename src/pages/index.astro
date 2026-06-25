@@ -3,6 +3,12 @@ import Base from '../layouts/Base.astro';
 
 const servicios = [
   {
+    titulo: 'IA aplicada a tu negocio',
+    desc: 'La misma inteligencia artificial que usan las grandes, puesta a trabajar para ti: un asistente que atiende a tus clientes, contenido para redes o el papeleo pesado hecho solo. Sin humo y explicado en cristiano.',
+    detalle: ['Asistentes y chatbots', 'Contenido con IA', 'Automatización'],
+    destacado: true,
+  },
+  {
     titulo: 'Tu web y tus apps',
     desc: 'Páginas, tiendas y aplicaciones a medida. Desde una landing que capte clientes hasta una herramienta interna que te ahorre horas.',
     detalle: ['Webs y tiendas online', 'Apps a medida', 'Automatizaciones'],
@@ -110,7 +116,8 @@ const construyo = [
       <div class="cards">
         {
           servicios.map((s) => (
-            <article class="card">
+            <article class={s.destacado ? 'card card-featured' : 'card'}>
+              {s.destacado && <span class="badge">IA</span>}
               <h3><span class="chev">&gt;</span> {s.titulo}</h3>
               <p>{s.desc}</p>
               <ul class="card-list">
